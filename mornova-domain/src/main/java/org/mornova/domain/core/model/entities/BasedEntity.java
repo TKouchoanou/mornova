@@ -11,7 +11,6 @@ public class BasedEntity <ID extends Serializable>{
    protected LocalDateTime updatedAt;
 
     public BasedEntity() {
-        System.out.println("IS CALL EMPTY"+this.getClass().getName());
         this.createdAt=LocalDateTime.now();
         this.updatedAt=LocalDateTime.now();
     }

@@ -60,6 +60,14 @@ public class User extends BasedEntity<UserId>{
     }
 
 
+
+
+
+
+
+
+
+
     public static final class Builder {
         private String firstName;
         private String lastName;

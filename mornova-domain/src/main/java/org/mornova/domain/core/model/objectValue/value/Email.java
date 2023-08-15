@@ -1,5 +1,7 @@
 package org.mornova.domain.core.model.objectValue.value;
 
+import org.mornova.domain.core.model.objectValue.refrerences.EmailRegex;
+
 import java.util.regex.Pattern;
 
 public class Email {
@@ -11,8 +13,7 @@ public class Email {
     }
      boolean isValid(String email) {
         // Expression régulière pour valider l'adresse e-mail
-       String  emailRegex = "^(.+)@(\\S+)$";
-        Pattern pattern = Pattern.compile(emailRegex);
+        Pattern pattern = Pattern.compile(EmailRegex.value);
 
          if (email == null || email.isEmpty()) {
              return false;
