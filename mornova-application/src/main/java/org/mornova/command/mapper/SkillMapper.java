@@ -2,10 +2,18 @@ package org.mornova.command.mapper;
 
 import org.mapstruct.Mapper;
 import org.mornova.command.command.profile.AddSkillCommand;
-import org.mornova.command.mapper.mapStruct.ToNewDomainEntity;
 import org.mornova.domain.core.model.entities.Skill;
-@Mapper
+import org.mornova.domain.core.model.objectValue.refrerences.SkillLevel;
+
+@Mapper(componentModel = "spring")
 public interface SkillMapper{
-    @ToNewDomainEntity
-    Skill toDomain(AddSkillCommand command);
+
+    default Skill toDomain(AddSkillCommand command){
+       return Skill
+                .builder()
+                .level(SkillLevel.valueOf(command.getLevel()))
+                .name(command.getName())
+                .build();
+    }
+
 }
