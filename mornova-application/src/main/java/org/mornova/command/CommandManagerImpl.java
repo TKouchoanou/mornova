@@ -3,6 +3,7 @@ package org.mornova.command;
 import org.mornova.command.command.Command;
 import org.mornova.command.handler.CommandHandler;
 import org.mornova.command.validator.CommandValidator;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionStatus;
@@ -13,21 +14,29 @@ import java.util.concurrent.CompletableFuture;
 @Component
 @SuppressWarnings({"unchecked","rawtypes"})
 public class CommandManagerImpl implements CommandManager{
+    private static final String ROLLBACK_LOG_FORMAT = "Rollback command {} execution failed for reason: {}";
+    private static final String RECEIVED_COMMAND_LOG_FORMAT = "Command {} is received for treatment";
+
+
     CommandValidator commandValidator;
 
     CommandRouting commandRouting;
 
     PlatformTransactionManager platformTransactionManager;
 
-    public CommandManagerImpl(CommandValidator commandValidator, CommandRouting commandRouting, PlatformTransactionManager platformTransactionManager) {
+    Logger logger;
+
+    public CommandManagerImpl(CommandValidator commandValidator, CommandRouting commandRouting, PlatformTransactionManager platformTransactionManager, Logger logger) {
         this.commandValidator = commandValidator;
         this.commandRouting = commandRouting;
         this.platformTransactionManager = platformTransactionManager;
+        this.logger = logger;
     }
+
 
     @Override
     public <T extends Command> T process(T command) {
-        System.out.println("command "+command.getClass().getName()+" is received for treatement");
+        logger.info(RECEIVED_COMMAND_LOG_FORMAT, command.getClass().getName());
 
         commandValidator.validBeforeHandling(command);
 
@@ -46,7 +55,9 @@ public class CommandManagerImpl implements CommandManager{
              context.getOnSuccessActions().forEach(Runnable::run);//action avant ou apres le commit?
              platformTransactionManager.commit(transactionStatus);
         }catch (Exception exception){
+            logger.warn(ROLLBACK_LOG_FORMAT, command.getClass().getName(), exception.getMessage());
           platformTransactionManager.rollback(transactionStatus);
+            exception.printStackTrace();
         }
         return command;
     }

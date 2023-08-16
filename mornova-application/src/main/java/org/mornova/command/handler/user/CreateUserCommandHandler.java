@@ -39,10 +39,6 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
 
 }
 /*
-User .builder()
-      .firstName(command.getFirstName())
-       .lastName(command.getLastName())
-            .email(command.getEmail())
-            .build()
+
 
 */

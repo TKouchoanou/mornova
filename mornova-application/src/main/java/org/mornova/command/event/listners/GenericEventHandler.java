@@ -6,6 +6,10 @@ import org.mornova.command.event.event.UserCreatedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 @Service
 @SuppressWarnings("unused")
 public class GenericEventHandler {
@@ -17,8 +21,11 @@ public class GenericEventHandler {
 
     @EventListener(value = UserCreatedEvent.class)
     public void OnUserCreated(UserCreatedEvent userCreated){
-        commandManager.process(CreateProfileCommand.builder()
+        Runnable runCreateProfile= ()-> commandManager.process(CreateProfileCommand.builder()
                 .id(userCreated.userId())
                 .build());
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.schedule(runCreateProfile , 5, TimeUnit.SECONDS);
+        scheduler.shutdown();
     }
 }
