@@ -56,7 +56,8 @@ public class CommandManagerImpl implements CommandManager{
              context.getOnSuccessActions().forEach(Runnable::run);
         }catch (Exception exception){
             logger.warn(ROLLBACK_LOG_FORMAT, command.getClass().getName(), exception.getMessage());
-          platformTransactionManager.rollback(transactionStatus);
+             context.getOnFailureActions().forEach(Runnable::run);
+             platformTransactionManager.rollback(transactionStatus);
             exception.printStackTrace();
         }
         return command;
