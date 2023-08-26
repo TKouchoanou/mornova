@@ -52,8 +52,8 @@ public class CommandManagerImpl implements CommandManager{
                  handleParallel(commandHandlerList,command,context);
              }
              commandValidator.validAfterHandling(command);
-             context.getOnSuccessActions().forEach(Runnable::run);//action avant ou apres le commit?
              platformTransactionManager.commit(transactionStatus);
+             context.getOnSuccessActions().forEach(Runnable::run);
         }catch (Exception exception){
             logger.warn(ROLLBACK_LOG_FORMAT, command.getClass().getName(), exception.getMessage());
           platformTransactionManager.rollback(transactionStatus);
