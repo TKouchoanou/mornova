@@ -87,6 +87,6 @@ public class CommandManagerImpl implements CommandManager{
    }
 
    boolean isSequentialHandling(Command command){
-     return commandRouting.isParallelHandling(command);
+     return !commandRouting.isParallelHandling(command);
    }
 }
