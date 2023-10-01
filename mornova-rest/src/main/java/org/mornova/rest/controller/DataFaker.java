@@ -2,6 +2,12 @@ package org.mornova.rest.controller;
 
 import com.github.javafaker.Faker;
 import org.mornova.domain.core.model.entities.*;
+import org.mornova.domain.core.model.entities.post.Comment;
+import org.mornova.domain.core.model.entities.post.Like;
+import org.mornova.domain.core.model.entities.post.ProjectPost;
+import org.mornova.domain.core.model.entities.profile.Experience;
+import org.mornova.domain.core.model.entities.profile.Profile;
+import org.mornova.domain.core.model.entities.profile.Skill;
 import org.mornova.domain.core.model.objectValue.refrerences.Currency;
 import org.mornova.domain.core.model.objectValue.refrerences.ProjectStatus;
 import org.mornova.domain.core.model.objectValue.refrerences.ProjectType;
@@ -45,7 +51,12 @@ public class DataFaker {
         this.postRepository = postRepository;
         this.profileRepository = profileRepository;
     }
+   public void initRole(){
+       for (String name:roleNames) {
+           roleRepository.save(Role.builder().name(name).build());
+       }
 
+   }
     public User fakeUser(){
         User user=User.builder()
                 .firstName("Malo")
@@ -85,7 +96,7 @@ public class DataFaker {
     ProjectPost fackePost(User author){
        int typeIndex=faker.random().nextInt(types.length);
        int statusIndex=faker.random().nextInt(status.length);
-    return     ProjectPost.Builder.builder()
+    return     ProjectPost.builder()
                 .author(author)
                 .projectName(faker.company().name())
                 .description(faker.lorem().sentence())

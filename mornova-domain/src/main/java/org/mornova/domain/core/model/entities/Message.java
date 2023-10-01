@@ -19,6 +19,11 @@ public class Message extends BasedEntity<MessageId> {
     public Message() {
     }
 
+    @Override
+    public MessageId getId() {
+        return id;
+    }
+
     protected Message(User sender, User recipient, String content) {
         this.sender = sender;
         this.recipient = recipient;

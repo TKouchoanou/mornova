@@ -13,6 +13,7 @@ import org.mornova.command.command.user.CreateUserCommand;
 import org.mornova.command.handler.CommandHandler;
 import org.mornova.command.handler.user.CreateUserCommandHandler;
 import org.mornova.command.validator.CommandValidator;
+import org.slf4j.Logger;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
@@ -104,11 +105,11 @@ public class CommandManagerTest {
 
         //command manager with succes
         commandRoutingWithSuccessHandlers =getCommandRouting(true);
-        commandManagerWithSuccess = new CommandManagerImpl(commandValidator,commandRoutingWithSuccessHandlers, platformTransactionManager);
+        commandManagerWithSuccess = new CommandManagerImpl(commandValidator,commandRoutingWithSuccessHandlers, platformTransactionManager,mock(Logger.class));
 
         //command manager with failure
         commandRoutingWithFailureHandlers =getCommandRouting(false);
-        commandManagerWithFailed =new CommandManagerImpl(commandValidator,commandRoutingWithFailureHandlers, platformTransactionManager);
+        commandManagerWithFailed =new CommandManagerImpl(commandValidator,commandRoutingWithFailureHandlers, platformTransactionManager,mock(Logger.class));
 
 
     }

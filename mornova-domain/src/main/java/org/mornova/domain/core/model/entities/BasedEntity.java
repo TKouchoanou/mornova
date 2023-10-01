@@ -4,9 +4,10 @@ import lombok.Getter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.function.Consumer;
 
 @Getter
-public class BasedEntity <ID extends Serializable>{
+public abstract class BasedEntity <ID extends Serializable>{
    protected LocalDateTime createdAt;
    protected LocalDateTime updatedAt;
 
@@ -18,16 +19,16 @@ public class BasedEntity <ID extends Serializable>{
         this.createdAt=persistenceDetail.createdAt;
         this.updatedAt=persistenceDetail.updatedAt;
     }
-
+    public abstract ID getId();
     public static class PersistenceDetailBuilder <ID> {
-        record PersistenceDetail<ID>(   ID id,
-                                        LocalDateTime createdAt,
-                                        LocalDateTime updatedAt){}
+        public record PersistenceDetail<ID>(ID id,
+                                            LocalDateTime createdAt,
+                                            LocalDateTime updatedAt){}
         ID id;
         private LocalDateTime createdAt;
         private LocalDateTime updatedAt;
 
-        PersistenceDetailBuilder(){}
+        public PersistenceDetailBuilder(){}
         public PersistenceDetailBuilder<ID> createdAt(LocalDateTime val) {
             createdAt = val;
             return this;
@@ -43,9 +44,12 @@ public class BasedEntity <ID extends Serializable>{
             return this;
         }
 
-        protected PersistenceDetail <ID>build(){
+        public PersistenceDetail <ID>build(){
             return new PersistenceDetail<>(id,createdAt,updatedAt);
         }
 
+    }
+   public Consumer<PersistenceDetailBuilder<ID>> persistenceDetailBuilderConsumer(){
+        return  (PersistenceDetailBuilder<ID> persistenceDetailBuilder) ->persistenceDetailBuilder.createdAt(createdAt).updatedAt(updatedAt).id(getId());
     }
 }

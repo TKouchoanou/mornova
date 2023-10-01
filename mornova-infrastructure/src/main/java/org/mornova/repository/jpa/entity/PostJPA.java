@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @SuperBuilder
 @Getter
+@Setter
 @Table(name = "posts")
 public abstract class PostJPA extends BasedEntity {
     @Id
@@ -23,9 +25,9 @@ public abstract class PostJPA extends BasedEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     protected UserJPA author;
-    @OneToMany(mappedBy = "post",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     protected List<CommentJPA> comments;
-    @OneToMany(mappedBy = "post",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     protected List<LikeJPA> likes;
     public void addLike(LikeJPA like) {
         likes.add(like);

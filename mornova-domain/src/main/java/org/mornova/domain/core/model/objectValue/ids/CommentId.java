@@ -17,4 +17,8 @@ public class CommentId implements BaseId<Long> {
     public Long getId() {
         return id;
     }
+
+    public static CommentId valueOf(String uuid){
+        return new CommentId(BaseId.longFromString(uuid));
+    }
 }

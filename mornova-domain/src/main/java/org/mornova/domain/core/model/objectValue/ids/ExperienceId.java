@@ -17,4 +17,7 @@ public class ExperienceId implements BaseId<Long> {
     public Long getId() {
         return id;
     }
+    public static ExperienceId valueOf(String uuid){
+        return new ExperienceId(BaseId.longFromString(uuid));
+    }
 }

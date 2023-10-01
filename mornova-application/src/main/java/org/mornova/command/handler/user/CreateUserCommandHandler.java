@@ -30,7 +30,7 @@ public class CreateUserCommandHandler implements CommandHandler<CreateUserComman
 
     User  user= userRepository.save(userMapper.toDomain(command));
       String userId= Optional.ofNullable(user.getId())
-              .map(UserId::valueOf)
+              .map(UserId::mapToString)
               .orElseThrow(()->new RuntimeException("id is null on persisted user"));
         command.setId(userId);
 

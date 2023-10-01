@@ -1,5 +1,6 @@
 package org.mornova.command.command.user;
 
+import jakarta.validation.constraints.Null;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Command.Usecase(handlers = {CreateUserCommandHandler.class})
 public class CreateUserCommand implements Command {
     @Setter
+    @Null
     String id;
     private  String firstName;
     private String lastName;

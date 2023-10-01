@@ -19,20 +19,21 @@ public class CommandValidatorImpl implements CommandValidator{
     @Override
     public void validBeforeHandling(Command command) {
         Set<ConstraintViolation<Command>> violations = validator.validate(command);
+        StringBuilder violationsMessage=new StringBuilder(violations.toString());
         if(violations.size()>0){
-            throw new RuntimeException(violations.toString());
+            throw new RuntimeException(violationsMessage.toString());
+        }
+        if(!command.checkValidityBeforeHandling(violationsMessage)){
+            throw new RuntimeException(violationsMessage.toString());
         }
     }
 
     @Override
     public void validAfterHandling(Command command) {
-        Set<ConstraintViolation<Command>> violations = validator.validate(command);
-        if(violations.size()>0){
-            throw new RuntimeException(violations.toString());
-        }
+        StringBuilder violationsMessage=new StringBuilder();
 
-        if(!command.isSatisfied()){
-            throw new RuntimeException("command handling is not satisfied");
+        if(!command.checkValidityAfterHandling(violationsMessage)){
+            throw new RuntimeException(violationsMessage.toString());
         }
     }
 }

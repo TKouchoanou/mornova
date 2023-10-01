@@ -19,10 +19,12 @@ public class UserController {
     RoleRepository roleRepository;
     DataFaker faker;
 
-    public UserController(DataFaker faker,UserRepository userRepository, RoleRepository roleRepository) {
+
+    public UserController(UserRepository userRepository, RoleRepository roleRepository, DataFaker faker) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.faker = faker;
+        faker.initRole();
     }
 
 

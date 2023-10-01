@@ -7,6 +7,7 @@ public interface DomainRepository <T,ID>{
      Optional<T> find(ID id);
     T delete(ID id);
     default T  findOrThrow(ID id){
-       return this.find(id).orElseThrow(()->new RuntimeException("entity "+this.getClass().getName()+" with id "+id+" not found"));
+       return this.find(id)
+               .orElseThrow(()->new RuntimeException("entity "+this.getClass().getName()+" with id "+id+" not found"));
     }
 }

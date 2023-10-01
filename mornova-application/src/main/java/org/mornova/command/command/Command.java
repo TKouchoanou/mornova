@@ -10,6 +10,16 @@ import java.lang.annotation.Target;
 @SuppressWarnings("unused")
 public interface Command {
     boolean isSatisfied();
+    default boolean checkValidityBeforeHandling(StringBuilder errorMessage){
+        return true;
+    }
+    default boolean checkValidityAfterHandling(StringBuilder errorMessage){
+        if(!isSatisfied()){
+            errorMessage.append("\ncommand handling is not satisfied");
+            return false;
+        }
+        return true;
+    }
     @Target(ElementType.TYPE)
     @Retention(RetentionPolicy.RUNTIME)
      @interface Usecase{

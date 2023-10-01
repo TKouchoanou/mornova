@@ -19,4 +19,7 @@ public class SkillId implements BaseId<Long> {
     public Long getId() {
         return id;
     }
+    public static SkillId valueOf(String uuid){
+        return new SkillId(BaseId.longFromString(uuid));
+    }
 }

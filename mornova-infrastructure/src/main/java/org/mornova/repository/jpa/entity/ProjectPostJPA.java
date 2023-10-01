@@ -1,12 +1,7 @@
 package org.mornova.repository.jpa.entity;
 
-import jakarta.persistence.Convert;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.mornova.domain.core.model.objectValue.refrerences.ProjectStatus;
 import org.mornova.domain.core.model.objectValue.refrerences.ProjectType;
@@ -19,6 +14,7 @@ import java.util.List;
 @Entity
 @SuperBuilder
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProjectPostJPA extends PostJPA {
@@ -41,5 +37,28 @@ public class ProjectPostJPA extends PostJPA {
     @Override
     public String getContent() {
         return description;
+    }
+    public class EntityGraphs {
+        public static final String POST_WITH_ALL_ASSOCIATIONS = "post-with-all-associations";
+
+        public static EntityGraph<ProjectPostJPA> createPostWithAllAssociationsGraph(EntityManager entityManager) {
+            EntityGraph<ProjectPostJPA> entityGraph =  entityManager.createEntityGraph(ProjectPostJPA.class);
+
+            // Charger les commentaires avec auteurs
+            Subgraph<List<CommentJPA>> commentsSubgraph = entityGraph.addSubgraph("comments");
+            commentsSubgraph.addAttributeNodes("author");
+
+            // Charger les likes avec auteurs
+            Subgraph<List<LikeJPA>> likesSubgraph = entityGraph.addSubgraph("likes");
+            likesSubgraph.addAttributeNodes("liker");
+
+            // Charger l'auteur du post
+            entityGraph.addAttributeNodes("author");
+
+            // Charger les médias
+            entityGraph.addAttributeNodes("mediaList");
+
+            return entityGraph;
+        }
     }
 }

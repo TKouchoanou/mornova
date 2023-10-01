@@ -20,7 +20,7 @@ public class ProfileId implements BaseId<UUID> {
     public UUID getId() {
         return id;
     }
-    public static ProfileId  fromString(String uuid){
-        return new ProfileId(UUID.fromString(uuid));
+    public static ProfileId valueOf(String uuid){
+        return new ProfileId(BaseId.uuidFromString(uuid));
     }
 }

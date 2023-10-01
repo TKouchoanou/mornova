@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
+
 @MappedSuperclass
 @SuperBuilder
 @Getter
@@ -27,5 +29,10 @@ public class BasedEntity {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        BasedEntity that= (BasedEntity) o;
+        return Objects.equals(createdAt, that.createdAt) && Objects.equals(updatedAt, that.updatedAt);
+    }
 
 }

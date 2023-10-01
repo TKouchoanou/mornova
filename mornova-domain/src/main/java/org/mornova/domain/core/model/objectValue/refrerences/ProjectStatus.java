@@ -1,6 +1,13 @@
 package org.mornova.domain.core.model.objectValue.refrerences;
 
-public enum ProjectStatus {
+import org.mornova.domain.core.model.objectValue.MapToString;
+
+public enum ProjectStatus implements MapToString {
     STARTED,
-    IN_REDACTION
+    IN_REDACTION;
+
+    @Override
+    public String mapToString() {
+        return this.name();
+    }
 }

@@ -22,4 +22,8 @@ public class PostId implements BaseId<UUID> {
     public UUID getId() {
         return id;
     }
+
+    public static PostId valueOf(String value){
+         return new PostId(BaseId.uuidFromString(value));
+    }
 }

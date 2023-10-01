@@ -1,8 +1,8 @@
 package org.mornova.rest.controller;
 
-import org.mornova.domain.core.model.entities.Comment;
-import org.mornova.domain.core.model.entities.Like;
-import org.mornova.domain.core.model.entities.ProjectPost;
+import org.mornova.domain.core.model.entities.post.Comment;
+import org.mornova.domain.core.model.entities.post.Like;
+import org.mornova.domain.core.model.entities.post.ProjectPost;
 import org.mornova.domain.core.model.entities.User;
 import org.mornova.domain.core.model.objectValue.ids.PostId;
 import org.mornova.domain.core.repository.ProjectPostRepository;

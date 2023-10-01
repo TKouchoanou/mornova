@@ -9,6 +9,8 @@ import org.hibernate.annotations.GenericGenerator;
 import org.mornova.domain.core.model.objectValue.ids.UserId;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,5 +28,10 @@ public class UserJPA extends BasedEntity{
     private String email;
     @ManyToMany
     private  List<RoleJPA> roles;
+    public List<String> toStringRoles() {
+        return roles.stream()
+                .map(RoleJPA::getName)
+                .collect(Collectors.toList());
+    }
 
 }

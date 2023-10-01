@@ -75,6 +75,10 @@
             <artifactId>mornova-domain</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mornova</groupId>
+            <artifactId>common-common</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>

@@ -19,6 +19,7 @@
         <module>mornova-application</module>
         <module>mornova-infrastructure</module>
         <module>mornova-rest</module>
+        <module>common-common</module>
     </modules>
     <properties>
         <maven-compiler-plugin.version>3.9.0</maven-compiler-plugin.version>
@@ -44,6 +45,11 @@
         <dependency>
             <groupId>org.mornova</groupId>
             <artifactId>mornova-rest</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mornova</groupId>
+            <artifactId>common-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

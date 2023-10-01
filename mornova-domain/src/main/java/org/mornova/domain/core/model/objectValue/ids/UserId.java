@@ -19,11 +19,12 @@ public class UserId implements BaseId<UUID>  {
                 "id=" + id +
                 '}';
     }
-    public static UserId  fromString(String uuid){
-        return new UserId(UUID.fromString(uuid));
+    public static UserId valueOf(String uuid){
+        return new UserId(BaseId.uuidFromString(uuid));
     }
-    public String valueOf(){
-        return id.toString();
+    @Override
+    public String mapToString(){
+        return id!=null? id.toString():null;
     }
 
     public UUID getId() {

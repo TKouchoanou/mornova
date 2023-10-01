@@ -16,4 +16,8 @@ public class LikeId implements BaseId<Long> {
     public Long getId() {
         return id;
     }
+
+    public static LikeId valueOf(String uuid){
+        return new LikeId(BaseId.longFromString(uuid));
+    }
 }

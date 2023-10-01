@@ -9,10 +9,11 @@ import java.util.function.Consumer;
 @Getter
 public class Media extends BasedEntity<MediaId>{
 
- private    MediaId id;
-private MediaType type;
-private byte[] file;
-String path;//byte[] if store in database
+    private   MediaId id;
+    private MediaType type;
+    private byte[] file;
+    private String path;//byte[] if store in database
+    private String name;
 
 
     public Media() {
@@ -22,6 +23,7 @@ String path;//byte[] if store in database
         type = builder.type;
         file = builder.file;
         path = builder.path;
+        name = builder.name;
 
         if(builder.mediaPD!=null){
             id=builder.mediaPD.id();
@@ -29,18 +31,21 @@ String path;//byte[] if store in database
         }
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static final class Builder {
         private MediaType type;
         private byte[] file;
         private String path;
+
+        private String name;
         PersistenceDetailBuilder.PersistenceDetail<MediaId> mediaPD;
 
         private Builder() {
         }
 
-        public static Builder builder() {
-            return new Builder();
-        }
 
         public Builder type(MediaType val) {
             type = val;
@@ -54,6 +59,10 @@ String path;//byte[] if store in database
 
         public Builder path(String val) {
             path = val;
+            return this;
+        }
+        public Builder name(String val) {
+            name = val;
             return this;
         }
         public Builder persistenceDetail(Consumer<PersistenceDetailBuilder<MediaId>> consumer ) {

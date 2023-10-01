@@ -1,5 +1,12 @@
 package org.mornova.domain.core.model.objectValue.refrerences;
 
-public enum ProjectType {
-    UNKNOWN
+import org.mornova.domain.core.model.objectValue.MapToString;
+
+public enum ProjectType implements MapToString {
+    UNKNOWN,AGRICOLE,TRANSPORT;
+
+    @Override
+    public String mapToString() {
+        return this.name();
+    }
 }

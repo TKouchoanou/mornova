@@ -34,43 +34,44 @@ public class UserCommandHandlerTest {
     public void setUp() {
         //MockitoAnnotations.openMocks(this);
         userRepositoryMock = mock(UserRepository.class);
-        /*
+        String firstName="theophane";
+        String lastName="malo";
+        String email="theophane.malo@example.com";
+        command = spy(CreateUserCommand.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .email(email)
+                .build());
+       // when(command.getLastName()).thenReturn("kouchoanou");
+
+        User.Builder userBuilder= User.builder()
+                .email(email)
+                .lastName(lastName)
+                .firstName(firstName);
+
+        unPersistedUser=userBuilder.build();
+
+        persistedUser=userBuilder
+                .persistenceDetail(
+                        pd->pd.id(new UserId(UUID.randomUUID()))
+                                .updatedAt(LocalDateTime.now().plusDays(4))
+                                .createdAt(LocalDateTime.now())
+                ).build();
        userMapper= mock(UserMapper.class);
         when(userMapper.toDomain(any(CreateUserCommand.class))).thenReturn(User
                 .builder()
                 .firstName(command.getFirstName())
                 .lastName(command.getLastName())
                 .email(command.getEmail())
-                .build());*/
+                .build());
 
         createUserCommandHandler = new CreateUserCommandHandler(userRepositoryMock,userMapper,mock(ApplicationEventPublisher.class));
         //
-        String firstName="theophane";
-        String lastName="malo";
-        String email="theophane.malo@example.com";
-      command = spy(CreateUserCommand.builder()
-                .firstName(firstName)
-                .lastName(lastName)
-                .email(email)
-                .build());
-        when(command.getLastName()).thenReturn("kouchoanou");
+
         /*when(command.getEmail()).thenReturn(email);
       when(command.getLastName()).thenReturn(lastName);
       when(command.getFirstName()).thenReturn(firstName);*/
 
-      User.Builder userBuilder= User.builder()
-                .email(email)
-                .lastName(lastName)
-                .firstName(firstName);
-
-      unPersistedUser=userBuilder.build();
-
-       persistedUser=userBuilder
-               .persistenceDetail(
-                      pd->pd.id(new UserId(UUID.randomUUID()))
-                              .updatedAt(LocalDateTime.now().plusDays(4))
-                              .createdAt(LocalDateTime.now())
-              ).build();
     }
 
     @Test
